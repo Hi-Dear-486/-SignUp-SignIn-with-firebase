@@ -18,3 +18,8 @@ export interface CustomProps {
   renderSkeleton?: (field: any) => React.ReactNode;
   children?: React.ReactNode;
 }
+
+export interface IPasswordResetResponse {
+  success: boolean;
+  message: string;
+}

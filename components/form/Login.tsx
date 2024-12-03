@@ -13,9 +13,10 @@ import { MdOutlineEmail } from "react-icons/md";
 import SubmitButton from "../SubmitButton";
 import "react-toastify/dist/ReactToastify.css";
 import { RiLockPasswordLine } from "react-icons/ri";
-import { doSignInWithEmailAndPassword } from "@/lib/auth";
+import { doPasswordReset, doSignInWithEmailAndPassword } from "@/lib/auth";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/authContext";
+import Loader from "../Loader";
 
 const LoginPage = () => {
   const [isSigning, setIsSigning] = useState(false);
@@ -49,6 +50,17 @@ const LoginPage = () => {
       router.push("/dashboard");
     }
   }, [userLoggedIn, router]);
+
+  const forgetPassword = async () => {
+    const email = form.getValues("email");
+    if (!email) {
+      toast.error("Please enter your email address.");
+      return;
+    }
+
+    await doPasswordReset(email, setIsLoading);
+  };
+
   return (
     <Form {...form}>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 flex-1">
@@ -78,8 +90,18 @@ const LoginPage = () => {
           placeholder="Enter password"
           iconSrc={<RiLockPasswordLine />}
         />
+        <div className="flex gap-x-4 items-center">
+          <a
+            href="#"
+            onClick={forgetPassword}
+            className="text-blue-500 underline"
+          >
+            Forget Password
+          </a>
+          {isLoading && <Loader />}
+        </div>
 
-        <SubmitButton isLoading={isLoading}>Login</SubmitButton>
+        <SubmitButton>Login</SubmitButton>
       </form>
     </Form>
   );

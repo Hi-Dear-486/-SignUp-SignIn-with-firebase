@@ -3,7 +3,7 @@ import { Button } from "./ui/button";
 import Image from "next/image";
 
 interface Buttonprops {
-  isLoading: boolean;
+  isLoading?: boolean;
   className?: string;
   children: React.ReactNode;
 }

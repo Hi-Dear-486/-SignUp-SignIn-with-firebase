@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const Login = () => {
+  
   return (
     <div className="flex h-md max-h-md">
       <section className="container my-auto">
